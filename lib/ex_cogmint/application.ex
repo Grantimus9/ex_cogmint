@@ -9,7 +9,7 @@ defmodule ExCogmint.Application do
 
     case check_environment_variables() do
       :ok ->
-        cogmint_key = Application.get_env(:ex_cogmint, "COGMINT_API_KEY")
+        cogmint_key = Application.get_env(:ex_cogmint, "cogmint_api_key")
         IO.inspect cogmint_key
         nil
       error -> IO.puts "Cogmint Initialization error: \n" <> error
