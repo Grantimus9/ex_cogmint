@@ -13,7 +13,13 @@ defmodule ExCogmint.ConfigTest do
     refute is_nil(key)
   end
 
-  
+  test "Returns server_url" do
+    url = ExCogmint.Config.server_url()
+    assert is_binary(url)
+    refute is_nil(url)
+  end
+
+
 
 
 

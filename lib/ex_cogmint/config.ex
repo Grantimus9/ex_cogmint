@@ -8,7 +8,13 @@ defmodule ExCogmint.Config do
 
   def init(state) do
     apikey = get_api_key_from_env()
-    state = Map.put(state, :apikey, apikey)
+    server_url = get_server_url()
+
+    state =
+      state
+      |> Map.put(:apikey, apikey)
+      |> Map.put(:server_url, server_url)
+
     {:ok, state}
   end
 
@@ -16,10 +22,19 @@ defmodule ExCogmint.Config do
     GenServer.call(__MODULE__, :api_key)
   end
 
+  def server_url() do
+    GenServer.call(__MODULE__, :server_url)
+  end
+
   # SERVER
   def handle_call(:api_key, _from, state) do
     api_key = Map.get(state, :apikey)
     {:reply, api_key, state}
+  end
+
+  def handle_call(:server_url, _from, state) do
+    server_url = Map.get(state, :server_url)
+    {:reply, server_url, state}
   end
 
   def get_api_key_from_env() do
@@ -37,6 +52,17 @@ defmodule ExCogmint.Config do
 
       key ->
         key
+    end
+  end
+
+  def get_server_url() do
+    case Mix.env do
+      :dev ->
+        "http://localhost:4000"
+      :prod ->
+        "https://cogmint-demo.herokuapp.com"
+      _ ->
+        "http://localhost:4000"
     end
   end
 
