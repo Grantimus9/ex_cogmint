@@ -1,6 +1,6 @@
 defmodule ExCogmint.Client do
   @moduledoc """
-
+    
   """
   alias ExCogmint.Config
 
