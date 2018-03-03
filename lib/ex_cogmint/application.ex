@@ -7,19 +7,14 @@ defmodule ExCogmint.Application do
 
   def start(_type, _args) do
 
-    case check_environment_variables() do
-      :ok ->
-        cogmint_key = Application.get_env(:ex_cogmint, "cogmint_api_key")
-        IO.inspect cogmint_key
-        nil
-      error -> IO.puts "Cogmint Initialization error: \n" <> error
-    end
-
     # List all child processes to be supervised
     children = [
       # Starts a worker by calling: ExCogmint.Worker.start_link(arg)
       # {ExCogmint.Worker, arg},
+      # Probably want to hold some auth info here.
 
+      {ExCogmint.Config, []}
+      # Can also add a retries genserver here.
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -28,7 +23,4 @@ defmodule ExCogmint.Application do
     Supervisor.start_link(children, opts)
   end
 
-  def check_environment_variables() do
-    :ok
-  end
 end
