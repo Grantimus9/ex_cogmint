@@ -5,13 +5,14 @@ defmodule ExCogmint.Project do
 
   # "localhost:4000/api/v1/projects/add_task"
   def build_add_task_request(%{"project_uuid" => project_uuid, "substitutions" => substitutions}) do
-    body = %{
-      task: %{
-        project_uuid: project_uuid,
-        substitutions: substitutions
+    body =
+      %{
+        task: %{
+          project_uuid: project_uuid,
+          substitutions: substitutions
+        }
       }
-    }
-    |> Jason.encode!
+      |> Jason.encode!()
 
     %{
       path: "/api/v1/projects/add_task",
@@ -19,5 +20,4 @@ defmodule ExCogmint.Project do
       method: :post
     }
   end
-
 end

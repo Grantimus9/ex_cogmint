@@ -1,6 +1,6 @@
 defmodule ExCogmint.Client do
   @moduledoc """
-    
+
   """
   alias ExCogmint.Config
 
@@ -24,7 +24,7 @@ defmodule ExCogmint.Client do
 
   def build_headers() do
     apikey = ExCogmint.Config.api_key()
-    ["apikey": apikey, "Content-Type": "Application/json"]
+    [apikey: apikey, "Content-Type": "Application/json"]
   end
 
   def build_body(body) do
@@ -36,7 +36,6 @@ defmodule ExCogmint.Client do
   end
 
   def handle_response(response) do
-    response.body |> Jason.decode
+    response.body |> Jason.decode()
   end
-
 end
