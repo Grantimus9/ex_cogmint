@@ -16,7 +16,7 @@ defmodule ExCogmint.Client do
 
   def build_headers() do
     apikey = ExCogmint.Config.api_key()
-    ["apikey": apikey, "Accept": "Application/json; Charset=utf-8"]
+    ["apikey": apikey, "Content-Type": "Application/json"]
   end
 
   def build_body(body) do
