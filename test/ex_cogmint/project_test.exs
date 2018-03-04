@@ -5,9 +5,10 @@ defmodule ExCogmint.ProjectTest do
   test "build_add_task_request/1" do
     project_uuid = "123"
     substitutions = %{"varname" => "new value"}
-    Project.build_add_task_request(%{"project_uuid" => project_uuid, "substitutions" => substitutions})
+
+    Project.build_add_task_request(%{
+      "project_uuid" => project_uuid,
+      "substitutions" => substitutions
+    })
   end
-
-
-
 end

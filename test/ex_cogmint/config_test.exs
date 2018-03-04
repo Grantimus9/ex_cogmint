@@ -18,9 +18,4 @@ defmodule ExCogmint.ConfigTest do
     assert is_binary(url)
     refute is_nil(url)
   end
-
-
-
-
-
 end
