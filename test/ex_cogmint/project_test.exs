@@ -8,6 +8,6 @@ defmodule ExCogmint.ProjectTest do
     Project.build_add_task_request(%{"project_uuid" => project_uuid, "substitutions" => substitutions})
   end
 
-  
+
 
 end
