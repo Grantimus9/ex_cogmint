@@ -36,6 +36,19 @@ defmodule ExCogmint.Client do
   end
 
   def handle_response(response) do
-    response.body |> Jason.decode()
+    {:ok, decoded_body} = response.body |> Jason.decode()
+    case Map.has_key?(decoded_body, "data") do
+      true ->
+        {:ok, decoded_body["data"]}
+
+      false ->
+        case Map.has_key?(decoded_body, "errors") do
+          true ->
+            {:error, decoded_body["errors"]}
+
+          _ ->
+            {:error, "Malformed Response From Cogmint Server"}
+        end
+    end
   end
 end
