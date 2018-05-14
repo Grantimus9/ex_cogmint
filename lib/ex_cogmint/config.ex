@@ -64,8 +64,14 @@ defmodule ExCogmint.Config do
   def get_server_url() do
     case Mix.env() do
       :dev ->
-        "http://localhost:4000"
-
+        case Application.get_env(:ex_cogmint, :use_live) do
+          nil ->
+            "http://localhost:4000"
+          true ->
+            "https://cogmint-demo.herokuapp.com"
+          false ->
+            "https://cogmint-demo.herokuapp.com"
+        end
       :prod ->
         "https://cogmint-demo.herokuapp.com"
 
