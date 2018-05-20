@@ -41,10 +41,36 @@ someone that works at your company, because you don't want to count them in your
 Now, another task will be available under that project, using the project's template and default parameters,
 like how many unique responses per task you want.
 
+## Setup
 
+1. Create an account at www.cogmint.com
+2. Setup your app's webhook URL at www.cogmint.com/account
 
+Cogmint will confirm that you own your webhook URL before sending it any traffic. If you're using Phoenix, here's some sample code:
 
+First, Set a route pointing to the controller that will handle incoming webhooks for Cogmint.
+```elixir
+# In myapp_web/router.ex
+scope "/", MyAppWeb do
+  # ...
+  post "/incomingwebhooks/cogmint", MyAppCogmintWebhooksController, :receive
+  # ...
+end
+```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/ex_cogmint](https://hexdocs.pm/ex_cogmint).
+Then, to respond to the challenge, you can use this code:
+```elixir
+  # In myapp_web/controllers/my_app_cogmint_webhooks_controller.ex
+  # the function that handles incoming traffic.
+  def receive(conn, params) do
+    case params["event"] do
+      "challenge" ->
+        json(conn, %{token: params["data"]["token"]})
+      _ ->
+        send_resp(conn, 200, "")
+    end
+  end
+```
+
+3. Set the API Keys in your app's mix.config as described above.
+4. Start making calls to the API.
