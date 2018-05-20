@@ -62,13 +62,8 @@ Then, to respond to the challenge, you can use this code:
 ```elixir
   # In myapp_web/controllers/my_app_cogmint_webhooks_controller.ex
   # the function that handles incoming traffic.
-  def receive(conn, params) do
-    case params["event"] do
-      "challenge" ->
-        json(conn, %{token: params["data"]["token"]})
-      _ ->
-        send_resp(conn, 200, "")
-    end
+  def receive(conn, %{"event" => "challenge", "data" => data}) do
+    json(conn, %{token: data["token"]})
   end
 ```
 
