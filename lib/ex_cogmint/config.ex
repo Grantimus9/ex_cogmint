@@ -62,13 +62,11 @@ defmodule ExCogmint.Config do
   end
 
   def get_server_url() do
-    case Application.get_env(:ex_cogmint, :use_live) do
+    case Application.get_env(:ex_cogmint, :cogmint_url) do
       nil ->
-        "http://localhost:4000"
-      true ->
-        "https://cogmint-demo.herokuapp.com"
-      false ->
-        "https://cogmint-demo.herokuapp.com"
+        "https://www.cogmint.com"
+      url ->
+        url
     end
   end
 end
