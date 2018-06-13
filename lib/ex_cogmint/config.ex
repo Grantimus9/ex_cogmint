@@ -9,11 +9,13 @@ defmodule ExCogmint.Config do
   def init(state) do
     apikey = get_api_key_from_env()
     server_url = get_server_url()
+    callback_url = get_callback_url()
 
     state =
       state
       |> Map.put(:apikey, apikey)
       |> Map.put(:server_url, server_url)
+      |> Map.put(:callback_url, callback_url)
 
     {:ok, state}
   end
@@ -26,6 +28,10 @@ defmodule ExCogmint.Config do
     GenServer.call(__MODULE__, :server_url)
   end
 
+  def callback_url() do
+    GenServer.call(__MODULE__, :callback_url)
+  end
+
   # SERVER
   def handle_call(:api_key, _from, state) do
     api_key = Map.get(state, :apikey)
@@ -35,6 +41,11 @@ defmodule ExCogmint.Config do
   def handle_call(:server_url, _from, state) do
     server_url = Map.get(state, :server_url)
     {:reply, server_url, state}
+  end
+
+  def handle_call(:callback_url, _from, state) do
+    callback_url = Map.get(state, :callback_url)
+    {:reply, callback_url, state}
   end
 
   def get_api_key_from_env() do
@@ -68,5 +79,9 @@ defmodule ExCogmint.Config do
       url ->
         url
     end
+  end
+
+  def get_callback_url() do
+    Application.get_env(:ex_cogmint, :callback_url)
   end
 end

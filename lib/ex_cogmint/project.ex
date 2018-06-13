@@ -9,7 +9,8 @@ defmodule ExCogmint.Project do
       %{
         task: %{
           project_uuid: project_uuid,
-          substitutions: substitutions
+          substitutions: substitutions,
+          callback_url: Config.callback_url()
         }
       }
       |> Jason.encode!()
