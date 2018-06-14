@@ -3,6 +3,7 @@ defmodule ExCogmint.ConfigTest do
 
   setup do
     Application.put_env(:ex_cogmint, :cogmint_api_key, "test-apikey")
+    Application.put_env(:ex_cogmint, :callback_url, "https://localhost:4000/incomingwebhooks")
     ExCogmint.Config.start_link([])
     {:ok, %{}}
   end
@@ -18,4 +19,11 @@ defmodule ExCogmint.ConfigTest do
     assert is_binary(url)
     refute is_nil(url)
   end
+
+  test "Returns callback_url" do
+    url = ExCogmint.Config.callback_url()
+    assert is_binary(url)
+    refute is_nil(url)
+  end
+
 end

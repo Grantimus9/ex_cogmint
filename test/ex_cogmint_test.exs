@@ -8,11 +8,11 @@ defmodule ExCogmintTest do
     assert {:error, _} = ExCogmint.add_task!("uuid", %{})
   end
 
-  test "add_task/1 returns error tuple when project doesn't exist" do
-    assert {:error, reason} = ExCogmint.add_task!("not-real-uuid", %{variable: "some-value"})
-    assert Regex.match?(~r/No Project Matches/, reason)
+  test "add_task/1 fails if not a valid API Key" do
+    assert {:error, [reason]} = ExCogmint.add_task!("not-real-uuid", %{variable: "some-value"})
+    assert Regex.match?(~r/Not a valid API Key/, reason)
   end
 
-  
+
 
 end
