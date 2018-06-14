@@ -2,6 +2,7 @@ defmodule ExCogmint.Project do
   @moduledoc """
     Builds request URLs for API actions related to the Project
   """
+  alias ExCogmint.Config
 
   # "localhost:4000/api/v1/projects/add_task"
   def build_add_task_request(%{"project_uuid" => project_uuid, "substitutions" => substitutions}) do
