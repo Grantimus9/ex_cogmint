@@ -76,6 +76,7 @@ defmodule ExCogmint.Config do
     case Application.get_env(:ex_cogmint, :cogmint_url) do
       nil ->
         "https://www.cogmint.com"
+
       url ->
         url
     end

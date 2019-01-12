@@ -12,7 +12,4 @@ defmodule ExCogmintTest do
     assert {:error, [reason]} = ExCogmint.add_task!("not-real-uuid", %{variable: "some-value"})
     assert Regex.match?(~r/Not a valid API Key/, reason)
   end
-
-
-
 end
