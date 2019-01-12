@@ -35,6 +35,12 @@ defmodule ExCogmint.Client do
     error
   end
 
+  @doc """
+    Handling bad HTTP responses needs to happen here.
+  """
+  def handle_response(%HTTPoison.Response{status_code: status_code}) when status_code >= 500 do
+    {:error, "Cogmint Server Failure. (#{status_code})"}
+  end
   def handle_response(response) do
     {:ok, decoded_body} = response.body |> Jason.decode()
     case Map.has_key?(decoded_body, "data") do
