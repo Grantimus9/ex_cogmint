@@ -55,6 +55,9 @@ defmodule ExCogmint.Client do
             {:error, decoded_body["errors"]}
 
           _ ->
+            if Mix.env() == :dev do
+              IO.inspect response
+            end
             {:error, "Malformed Response From Cogmint Server"}
         end
     end

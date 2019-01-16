@@ -22,4 +22,22 @@ defmodule ExCogmint do
     |> ExCogmint.Project.build_add_task_request()
     |> ExCogmint.Client.request!()
   end
+
+  @doc """
+    Pings the server. Server will return with error if the client is using an invalid key,
+    otherwise will return with whether or not the client is using a live key.
+    Example Response:
+    {:ok, %{"production_key" => true, "valid" => true}}
+  """
+  def ping() do
+    %{
+      path: "/api/v1/ping",
+      body: "",
+      method: :get
+    }
+    |> ExCogmint.Client.request!()
+  end
+
+
+
 end
