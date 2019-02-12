@@ -8,7 +8,7 @@ defmodule ExCogmint do
   pass in the variable names you wish to substitute, along with their values.
 
   ## Examples
-
+  
 
   """
   # Substitutions could be a keyword list or a map of kv pairs. project_uuid must be a string.
@@ -38,6 +38,17 @@ defmodule ExCogmint do
     |> ExCogmint.Client.request!()
   end
 
+  @doc """
+    Gets information on a task ("worktask"). Returns the task, including associated submissions as a list of strings.
+  """
+  def get_task!(nil), do: {:error, "get_task! requires a UUID that is not nil"}
+  def get_task!(""), do: {:error, "get_task! requires a UUID that is not blank"}
+  def get_task!(uuid) when (false == is_binary(uuid)), do: {:error, "UUID should be a string binary"}
+  def get_task!(uuid) when byte_size(uuid) < 36, do: {:error, "Invalid UUID: it should be 36 bytes"}
 
-
+  def get_task!(uuid) when is_binary(uuid) do
+    uuid
+    |> ExCogmint.Worktask.build_get_task_request()
+    |> ExCogmint.Client.request!()
+  end
 end

@@ -1,6 +1,6 @@
 defmodule ExCogmint.Project do
   @moduledoc """
-    Builds request URLs for API actions related to the Project
+    Builds request URLs for API actions related to the Project object/struct
   """
   alias ExCogmint.Config
 
