@@ -17,6 +17,7 @@ defmodule ExCogmint.Client do
         handle_error(error)
     end
   end
+  def request!(err = {:error, _}), do: err
 
   def build_full_url(path) do
     Config.server_url() <> path
