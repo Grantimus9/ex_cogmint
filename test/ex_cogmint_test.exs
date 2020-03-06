@@ -13,6 +13,10 @@ defmodule ExCogmintTest do
     assert Regex.match?(~r/Not a valid API Key/, reason)
   end
 
+  test "add_task! fails if passed a map with both string and atomic keys" do
+    assert {:error, _} = ExCogmint.add_task!("not-real-uuid", %{"string" => "value", atom: "some other value"})
+  end
+
   test "get_task!/1 fails if not sent a binary" do
     assert {:error, _msg} = ExCogmint.get_task!(123)
   end
@@ -20,5 +24,5 @@ defmodule ExCogmintTest do
     assert {:error, _msg} = ExCogmint.get_task!("tooshort")
   end
 
-  
+
 end
