@@ -4,12 +4,12 @@ defmodule ExCogmint.Mixfile do
   def project do
     [
       app: :ex_cogmint,
-      version: "0.0.2",
+      version: "0.0.3",
       elixir: "~> 1.5",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
-      description: "Client for Cogmint Project"
+      description: "Elixir Client for Cogmint.com"
     ]
   end
 
@@ -27,8 +27,6 @@ defmodule ExCogmint.Mixfile do
       {:ex_doc, ">= 0.19.0", only: :dev},
       {:httpoison, "~> 1.0"},
       {:jason, "~> 1.0"}
-      # {:dep_from_hexpm, "~> 0.3.0"},
-      # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
     ]
   end
 

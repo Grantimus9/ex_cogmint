@@ -4,11 +4,34 @@ defmodule ExCogmint do
   """
 
   @doc """
-  Add a task to an existing project. Requires that you know the project's UUID, and
-  pass in the variable names you wish to substitute, along with their values.
+    Add a new task to an existing project.
 
-  ## Examples
+    Project_uuid is the project's ID for which you wish to add a new microtask.
 
+    The second argument is a map of substitutions you wish to make to the default project
+    task template in order to create the task.
+
+    For example, suppose you have a project asking users
+    to determine if a city is a capital city or not. This project likely has a template that looks
+    something like:
+
+    "Is [[city]] a capital city?"
+
+    For this project template, we can provide a map replacing the variable city with a value
+    by passing in a map like
+
+    `%{"city" => "Washington, D.C."}`
+
+    Resulting in a task created for a worker like:
+
+    "Is Washington, D.C. a capital city?"
+
+    ## Examples
+    `ExCogmint.add_task!("1234-12345-1234-12345", %{"city" => "Brasilia"})`
+    `ExCogmint.add_task!("abc-123-abc", %{"variable_name_to_replace" => "string inserted"})`
+
+    Will return either {:error, "helpful message"} or
+    {:ok, %{"map" => "of", "created" => "task", "params" => "here"}}
 
   """
   # Substitutions could be a keyword list or a map of kv pairs. project_uuid must be a string.
