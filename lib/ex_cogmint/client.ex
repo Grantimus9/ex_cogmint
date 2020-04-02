@@ -1,6 +1,6 @@
 defmodule ExCogmint.Client do
   @moduledoc """
-
+  Basic interface to Cogmint. This module is responsible for making the URL request and handling the response.
   """
   alias ExCogmint.Config
 
