@@ -1,9 +1,21 @@
 defmodule ExCogmint.Client do
   @moduledoc """
-
+  Basic interface to Cogmint. This module is responsible for making the URL request and handling the response.
   """
   alias ExCogmint.Config
 
+  def request!(%{path: path, method: :get}) do
+    full_url = build_full_url(path)
+    headers = build_headers()
+
+    case HTTPoison.request(:get, full_url, "", headers) do
+      {:ok, response} ->
+        handle_response(response)
+
+      {:error, error} ->
+        handle_error(error)
+    end
+  end
   def request!(%{path: path, body: body, method: method}) do
     full_url = build_full_url(path)
     body = build_body(body)

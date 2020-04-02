@@ -1,6 +1,6 @@
 defmodule ExCogmint.Worktask do
   @moduledoc """
-    Builds request URLs for API actions related to the Worktask object/struct.
+  Builds request URLs for API actions related to the Worktask object/struct.
   """
   alias ExCogmint.Config
 
