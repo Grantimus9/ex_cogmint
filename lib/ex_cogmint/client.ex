@@ -8,7 +8,7 @@ defmodule ExCogmint.Client do
     full_url = build_full_url(path)
     headers = build_headers()
 
-    case HTTPoison.request(method, full_url, "", headers) do
+    case HTTPoison.request(:get, full_url, "", headers) do
       {:ok, response} ->
         handle_response(response)
 
