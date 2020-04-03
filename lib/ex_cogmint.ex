@@ -17,10 +17,12 @@ defmodule ExCogmint do
 
   "Is [[city]] a capital city?"
 
-  For this project template, we can provide a map replacing the variable city with a value
+  For this project template, we can provide a map replacing the variable `city` with a value
   by passing in a map like
 
-  `%{"city" => "Washington, D.C."}`
+  ```
+  %{"city" => "Washington, D.C."}
+  ```
 
   Resulting in a task created for a worker like:
 
@@ -28,11 +30,34 @@ defmodule ExCogmint do
 
   ## Examples
 
-  `ExCogmint.add_task!("1234-12345-1234-12345", %{"city" => "Brasilia"})`
-  `ExCogmint.add_task!("abc-123-abc", %{"variable_name_to_replace" => "string inserted"})`
+  ```
+  ExCogmint.add_task!("1234-12345-1234-12345", %{"city" => "Brasilia"})
+  ExCogmint.add_task!("abc-123-abc", %{"variable_name_to_replace" => "string inserted"})
+  ```
 
-  Will return either {:error, "helpful message"} or
-  {:ok, %{"map" => "of", "created" => "task", "params" => "here"}}
+  Potential Responses:
+  ```
+  {:ok,
+    %{
+        data: %{
+          prompt: "Hotdog or not hotdog?",
+          task_uuid: "1234-1234-1234",
+          reward: 4,
+          callback_url: "https://yoururl.com/callbackyouspecify",
+          required_submissions: 3,
+          submission_count: 3,
+          checked_out_at: <datetime>,
+          allowed_completion_time_seconds: 3600,
+          external_image_url: "https://www.imagehostingurl.com/maybehotdog.png",
+          submissions: []
+        }
+      }
+    }
+  ```
+  or
+  ```
+  {:error, "helpful message"}
+  ```
 
   """
   # Substitutions could be a keyword list or a map of kv pairs. project_uuid must be a string.
@@ -48,22 +73,26 @@ defmodule ExCogmint do
   end
 
   @doc """
-  Pings the server. Server will return with error if the client is using an invalid key,
-  otherwise will return with whether or not the client is using a live key.
-  Example Response:
-  {:ok, %{"production_key" => true, "valid" => true}}
-  """
-  def ping() do
-    %{
-      path: "/api/v1/ping",
-      body: "",
-      method: :get
-    }
-    |> ExCogmint.Client.request!()
-  end
-
-  @doc """
   Gets information on a task ("worktask"). Returns the task, including associated submissions as a list of strings.
+
+  Example response:
+  ```
+  %{
+      data: %{
+        prompt: "Hotdog or not hotdog?",
+        task_uuid: "1234-1234-1234",
+        reward: 4,
+        callback_url: "https://yoururl.com/callbackyouspecify",
+        required_submissions: 3,
+        submission_count: 3,
+        checked_out_at: <datetime>,
+        allowed_completion_time_seconds: 3600,
+        external_image_url: "https://www.imagehostingurl.com/maybehotdog.png",
+        submissions: ["yes", "yes", "yes"]
+      }
+    }
+  ```
+
   """
   def get_task!(nil), do: {:error, "get_task! requires a UUID that is not nil"}
   def get_task!(""), do: {:error, "get_task! requires a UUID that is not blank"}
@@ -73,6 +102,16 @@ defmodule ExCogmint do
   def get_task!(uuid) when is_binary(uuid) do
     uuid
     |> ExCogmint.Worktask.build_get_task_request()
+    |> ExCogmint.Client.request!()
+  end
+
+  @doc false
+  def ping() do
+    %{
+      path: "/api/v1/ping",
+      body: "",
+      method: :get
+    }
     |> ExCogmint.Client.request!()
   end
 end
