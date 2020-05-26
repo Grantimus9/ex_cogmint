@@ -1,4 +1,25 @@
 defmodule ExCogmint.Config do
+  @moduledoc """
+    Configuration for the ExCogmint app.
+
+    Provide configuration in your application's config.exs.
+
+    Example configuration:
+    ```
+    config :ex_cogmint,
+      cogmint_api_key: System.get_env("COGMINT_API_KEY"),
+      callback_url: System.get_env("COGMINT_CALLBACK_URL"),
+      server_url: System.get_env("COGMINT_URL")
+    ```
+
+    cogmint_api_key: required. The API key for your Cogmint account.
+
+    callback_url: optional. Sets the default callback_url on each task created. If your app has a single endpoint for receiving all callbacks from Cogmint it is recommended to set this, or else you
+    need to set it individually on every task creation API call.
+
+    server_url: optional. The URL where this app expects to find Cogmint. You should never need to set this.
+  """
+
   use GenServer
   require Logger
 
@@ -72,6 +93,9 @@ defmodule ExCogmint.Config do
     end
   end
 
+  @doc """
+    Retrieves cogmint_url from config or uses https://www.cogmint.com (default)
+  """
   def get_server_url() do
     case Application.get_env(:ex_cogmint, :cogmint_url) do
       nil ->
@@ -82,6 +106,9 @@ defmodule ExCogmint.Config do
     end
   end
 
+  @doc """
+    Retrieves the default callback (webhook) URL where Cogmint will send webhooks.
+  """
   def get_callback_url() do
     Application.get_env(:ex_cogmint, :callback_url)
   end
