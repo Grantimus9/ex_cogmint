@@ -9,7 +9,7 @@ defmodule ExCogmint.Config do
     config :ex_cogmint,
       cogmint_api_key: System.get_env("COGMINT_API_KEY"),
       callback_url: System.get_env("COGMINT_CALLBACK_URL"),
-      server_url: System.get_env("COGMINT_URL")
+      cogmint_url: System.get_env("COGMINT_URL")
     ```
 
     cogmint_api_key: required. The API key for your Cogmint account.
@@ -17,7 +17,7 @@ defmodule ExCogmint.Config do
     callback_url: optional. Sets the default callback_url on each task created. If your app has a single endpoint for receiving all callbacks from Cogmint it is recommended to set this, or else you
     need to set it individually on every task creation API call.
 
-    server_url: optional. The URL where this app expects to find Cogmint. You should never need to set this.
+    cogmint_url: optional. The URL where this app expects to find Cogmint. You should never need to set this.
   """
 
   use GenServer
