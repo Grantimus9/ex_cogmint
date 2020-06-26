@@ -69,4 +69,8 @@ defmodule ExCogmint.ProjectTest do
     end
   end
 
+  describe "get_project/1" do
+    
+  end
+
 end

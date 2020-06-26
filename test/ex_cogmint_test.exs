@@ -28,4 +28,14 @@ defmodule ExCogmintTest do
   end
 
 
+  # get_project!/1
+  test "get_project/1 fails if not sent a binary" do
+    assert {:error, _msg} = ExCogmint.get_project!(123)
+  end
+  test "get_project/1 fails if sent a project uuid thats too short" do
+    assert {:error, _msg} = ExCogmint.get_project!("tooshort")
+  end
+
+
+
 end
