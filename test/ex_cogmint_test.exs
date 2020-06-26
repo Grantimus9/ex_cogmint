@@ -9,7 +9,7 @@ defmodule ExCogmintTest do
   end
 
   test "add_task!/1 fails if not a valid API Key" do
-    assert {:error, [%{"field" => "apikey"}]} = ExCogmint.add_task!("not-real-uuid", %{variable: "some-value"})
+    assert {:error, [%{"field" => "root"}]} = ExCogmint.add_task!("not-real-uuid", %{variable: "some-value"})
   end
 
   test "add_task! fails if passed a map with both string and atomic keys and a common key name" do
