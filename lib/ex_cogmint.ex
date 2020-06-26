@@ -1,9 +1,25 @@
 defmodule ExCogmint do
   @moduledoc """
     Documentation for ExCogmint, the Elixir client library which is a thin wrapper
-    around the Cogmint.Com API.
+    around the Cogmint.com API.
 
     [Cogmint.com](https://www.cogmint.com) is a crowdsourcing / micro task website.
+
+
+    Example configuration (see `ExCogmint.Config` for more details)
+
+    In your app's config.exs file:
+    ```
+    config :ex_cogmint,
+      cogmint_api_key: System.get_env("COGMINT_API_KEY"),
+      callback_url: System.get_env("COGMINT_CALLBACK_URL")
+    ```
+
+    cogmint_api_key: required. The API key for your Cogmint account.
+
+    callback_url: optional. Sets the default callback_url on each task created. If your app has a single endpoint for receiving all callbacks from Cogmint it is recommended to set this, or else you
+    need to set it individually on every task creation API call.
+
   """
 
   @doc """

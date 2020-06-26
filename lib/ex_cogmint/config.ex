@@ -23,10 +23,12 @@ defmodule ExCogmint.Config do
   use GenServer
   require Logger
 
+  @doc false
   def start_link(_state) do
     GenServer.start_link(__MODULE__, %{}, name: __MODULE__)
   end
 
+  @doc false
   def init(state) do
     apikey = get_api_key_from_env()
     server_url = get_server_url()
@@ -41,34 +43,50 @@ defmodule ExCogmint.Config do
     {:ok, state}
   end
 
+  @doc """
+    Returns the API key.
+  """
   def api_key() do
     GenServer.call(__MODULE__, :api_key)
   end
 
+  @doc """
+    Returns the Cogmint server URL. You should never need to change this, but
+    can point this library at any endpoint you want, perhaps to test calls that are
+    sent.
+  """
   def server_url() do
     GenServer.call(__MODULE__, :server_url)
   end
 
+  @doc """
+    The default callback URL for tasks created via this API. Cogmint will send webhook
+    events to this URL, such as "task_completed".
+  """
   def callback_url() do
     GenServer.call(__MODULE__, :callback_url)
   end
 
   # SERVER
+  @doc false
   def handle_call(:api_key, _from, state) do
     api_key = Map.get(state, :apikey)
     {:reply, api_key, state}
   end
 
+  @doc false
   def handle_call(:server_url, _from, state) do
     server_url = Map.get(state, :server_url)
     {:reply, server_url, state}
   end
 
+  @doc false
   def handle_call(:callback_url, _from, state) do
     callback_url = Map.get(state, :callback_url)
     {:reply, callback_url, state}
   end
 
+  @doc false
   def get_api_key_from_env() do
     case Application.get_env(:ex_cogmint, :cogmint_api_key) do
       nil ->
