@@ -6,7 +6,7 @@ defmodule ExCogmint.WorktaskTest do
     uuid = "b58acbd2-a72e-44d7-ae7c-59ebc9852a54"
 
     expected = %{
-      path: "/api/v1/worktasks/b58acbd2-a72e-44d7-ae7c-59ebc9852a54",
+      path: "/api/v1/tasks/b58acbd2-a72e-44d7-ae7c-59ebc9852a54",
       method: :get
     }
 
