@@ -134,7 +134,7 @@ defmodule ExCogmint do
         has_published_tasks: true,
         lifetime_payments_to_workers_cents: 15000,
         name: "Test Project (using test key)",
-        uuid: "1"
+        uuid: "39a832c4-6ad0-48ef-9cf3-f251efb124f2"
       }
     }
   }
