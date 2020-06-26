@@ -4,6 +4,9 @@ defmodule ExCogmint.Project do
   """
   alias ExCogmint.Config
 
+  @doc """
+    Builds the request for adding a new task.
+  """
   def build_add_task_request(%{"project_uuid" => project_uuid, "substitutions" => substitutions}) do
     with {:ok, substitutions} <- ensure_substitutions_uses_same_key_type(substitutions)
     do
@@ -27,6 +30,7 @@ defmodule ExCogmint.Project do
     end
   end
 
+  @doc false
   def ensure_substitutions_uses_same_key_type(map) when is_map(map) do
     case all_unique_keys?(map) do
       true ->
@@ -42,6 +46,7 @@ defmodule ExCogmint.Project do
     end
   end
 
+  @doc false
   def all_unique_keys?(map) when is_map(map) do
     u_keys =
       map
@@ -50,6 +55,17 @@ defmodule ExCogmint.Project do
       |> Enum.uniq()
 
     Enum.count(u_keys) == Enum.count(Map.keys(map))
+  end
+
+  @doc """
+    Builds the request to get project details by project UUID.
+  """
+  def build_get_project_request(project_uuid) when is_binary(project_uuid) do
+    %{
+      path: "/api/v1/projects/#{project_uuid}",
+      body: "",
+      method: :get
+    }
   end
 
 end

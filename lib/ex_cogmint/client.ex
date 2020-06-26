@@ -31,25 +31,29 @@ defmodule ExCogmint.Client do
   end
   def request!(err = {:error, _}), do: err
 
+  @doc false
   def build_full_url(path) do
     Config.server_url() <> path
   end
 
+  @doc false
   def build_headers() do
     apikey = ExCogmint.Config.api_key()
     [apikey: apikey, "Content-Type": "Application/json"]
   end
 
+  @doc false
   def build_body(body) do
     body
   end
 
+  @doc false
   def handle_error(error) do
     error
   end
 
   @doc """
-    Handling bad HTTP responses needs to happen here.
+    Handles HTTPoison.Response scenarios, such as bad HTTP calls.
   """
   def handle_response(%HTTPoison.Response{status_code: status_code}) when status_code >= 500 do
     {:error, "Cogmint Server Failure. (#{status_code})"}
