@@ -5,13 +5,12 @@ tasks within your company.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `ex_cogmint` to your list of dependencies in `mix.exs`:
+The package can be installed by adding `ex_cogmint` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:ex_cogmint, "~> 0.0.1"}
+    {:ex_cogmint, "~> 0.0.6"}
   ]
 end
 ```
@@ -27,6 +26,8 @@ or, if running on Heroku or pulling environment variables at runtime:
 config :ex_cogmint,
   cogmint_api_key: System.get_env("COGMINT_API_KEY")
 ```
+
+[Hex Documentation](https://hexdocs.pm/ex_cogmint/ExCogmint.html)
 
 ## Examples
 
